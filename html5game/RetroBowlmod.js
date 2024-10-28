@@ -2,6 +2,7 @@
     'use strict';
 
     window.saveData = localStorage.getItem('RetroBowl.0.savedata.ini');
+    
     const addCredits = (count) => {
         const newSave = window.saveData.replace(/coach_credit="[0-9]+"/g, `coach_credit="${count}"`);
         localStorage.setItem('RetroBowl.0.savedata.ini', newSave);
@@ -19,19 +20,19 @@
 
     const changeStadiumLvl = (lvl) => {
         let newSave = window.saveData.replace(/facility_upgraded_stadium="[0-9]+"/, `facility_upgraded_stadium="${lvl}"`);
-        newSave = window.saveData.replace(/facility_stadium="[0-9]+"/, `facility_stadium="${lvl}"`);
+        newSave = newSave.replace(/facility_stadium="[0-9]+"/, `facility_stadium="${lvl}"`);
         localStorage.setItem('RetroBowl.0.savedata.ini', newSave);
     }
 
     const changeTrainingLvl = (lvl) => {
         let newSave = window.saveData.replace(/facility_upgraded_training="[0-9]+"/, `facility_upgraded_training="${lvl}"`);
-        newSave = window.saveData.replace(/facility_training="[0-9]+"/, `facility_training="${lvl}"`);
+        newSave = newSave.replace(/facility_training="[0-9]+"/, `facility_training="${lvl}"`);
         localStorage.setItem('RetroBowl.0.savedata.ini', newSave);
     }
 
     const changeRehabLvl = (lvl) => {
         let newSave = window.saveData.replace(/facility_upgraded_rehab="[0-9]+"/, `facility_upgraded_rehab="${lvl}"`);
-        newSave = window.saveData.replace(/facility_rehab="[0-9]+"/, `facility_rehab="${lvl}"`);
+        newSave = newSave.replace(/facility_rehab="[0-9]+"/, `facility_rehab="${lvl}"`);
         localStorage.setItem('RetroBowl.0.savedata.ini', newSave);
     }
 
@@ -39,8 +40,28 @@
         const body = document.querySelector("body");
         let div = document.createElement("div");
         div.id = "ctrlBar";
-        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);"
+        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);cursor:move;";
         body.appendChild(div);
+
+        // Make the ctrlBar draggable
+        let offsetX, offsetY;
+
+        div.addEventListener('mousedown', (e) => {
+            offsetX = e.clientX - div.getBoundingClientRect().left;
+            offsetY = e.clientY - div.getBoundingClientRect().top;
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+        });
+
+        const mouseMoveHandler = (e) => {
+            div.style.left = `${e.clientX - offsetX}px`;
+            div.style.top = `${e.clientY - offsetY}px`;
+        };
+
+        const mouseUpHandler = () => {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
     }
 
     const injectCreditsBtn = () => {
@@ -94,7 +115,7 @@
     const injectStadiumBtn = () => {
         const ctrlBar = document.querySelector("#ctrlBar");
         let btn = document.createElement("button");
-        btn.id = "salaryBtn";
+        btn.id = "stadiumBtn";
         btn.innerText = "Change Stadium Level";
         ctrlBar.appendChild(btn);
 
@@ -166,7 +187,7 @@
         rehab: injectRehabBtn(),
         info: injectInfoBtn(),
         addAll: function() {
-            for (let method of Object.keys(this).filter(m => m !== "addAll")) method;
+            for (let method of Object.keys(this).filter(m => m !== "addAll")) this[method];
         }
     }
     methods.addAll();
