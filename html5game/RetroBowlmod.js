@@ -1,5 +1,3 @@
-<button onclick="function()">Click</button>
- 
 (function() {
     'use strict';
 
