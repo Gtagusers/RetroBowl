@@ -1,4 +1,6 @@
- (function() {
+<button onclick="function()">Click</button>
+ 
+(function() {
     'use strict';
 
     window.saveData = localStorage.getItem('RetroBowl.0.savedata.ini');
