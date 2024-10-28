@@ -40,7 +40,7 @@
         const body = document.querySelector("body");
         let div = document.createElement("div");
         div.id = "ctrlBar";
-        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);cursor:move;";
+        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);cursor:move; width: 300px; height: 50px; display: flex; justify-content: space-around; align-items: center;";
         body.appendChild(div);
 
         // Make the ctrlBar draggable
@@ -64,14 +64,19 @@
         };
     }
 
-    const injectCreditsBtn = () => {
+    const createButton = (id, text, callback) => {
         const ctrlBar = document.querySelector("#ctrlBar");
         let btn = document.createElement("button");
-        btn.id = "creditsBtn";
-        btn.innerText = "Give Me Credits!";
+        btn.id = id;
+        btn.innerText = text;
+        btn.style = "width: 120px; height: 30px; white-space: nowrap;"; // Fixed size for buttons
         ctrlBar.appendChild(btn);
 
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", callback);
+    }
+
+    const injectCreditsBtn = () => {
+        createButton("creditsBtn", "Give Me Credits!", () => {
             const newCreditCount = window.prompt("How many credits would you like?");
             if (!isNaN(newCreditCount)) {
                 addCredits(newCreditCount);
@@ -81,13 +86,7 @@
     }
 
     const injectSalaryBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "salaryBtn";
-        btn.innerText = "Change Salary Cap!";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+        createButton("salaryBtn", "Change Salary Cap!", () => {
             const newSalary = window.prompt("What would you like your new salary cap to be?");
             if (!isNaN(newSalary)) {
                 changeSalaryCap(newSalary);
@@ -97,13 +96,7 @@
     }
 
     const injectDraftBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "draftBtn";
-        btn.innerText = "Change Draft Picks";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+        createButton("draftBtn", "Change Draft Picks", () => {
             const newDraft = window.prompt("How many 1st round draft picks would you like?");
             if (!isNaN(newDraft)) {
                 changeDraft(newDraft);
@@ -113,13 +106,7 @@
     }
 
     const injectStadiumBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "stadiumBtn";
-        btn.innerText = "Change Stadium Level";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+        createButton("stadiumBtn", "Change Stadium Level", () => {
             const newLvl = window.prompt("What level stadium do you want (0-10)?");
             if (!isNaN(newLvl)) {
                 changeStadiumLvl(newLvl);
@@ -129,13 +116,7 @@
     }
 
     const injectTrainingBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "trainingBtn";
-        btn.innerText = "Change Training Facility Level";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+        createButton("trainingBtn", "Change Training Facility Level", () => {
             const newLvl = window.prompt("What level training facilities do you want (0-10)?");
             if (!isNaN(newLvl)) {
                 changeTrainingLvl(newLvl);
@@ -145,13 +126,7 @@
     }
 
     const injectRehabBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "rehabBtn";
-        btn.innerText = "Change Rehab Facility Level";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
+        createButton("rehabBtn", "Change Rehab Facility Level", () => {
             const newLvl = window.prompt("What level rehab facilities do you want (0-10)?");
             if (!isNaN(newLvl)) {
                 changeRehabLvl(newLvl);
@@ -161,19 +136,13 @@
     }
 
     const injectInfoBtn = () => {
-        const ctrlBar = document.querySelector("#ctrlBar");
-        let btn = document.createElement("button");
-        btn.id = "info";
-        btn.innerText = "Client info";
-        ctrlBar.appendChild(btn);
-
-        btn.addEventListener("click", () => {
-           alert(`
-           Using RB_Cracker v0.1\n
-           By Finn Lancaster (flancast90)\n
-           https://github.com/flancast90 (Star it!)\n
-           Problems? Contact flancast90@gmail.com
-           `);
+        createButton("info", "Client info", () => {
+            alert(`
+            Using RB_Cracker v0.1\n
+            By Finn Lancaster (flancast90)\n
+            https://github.com/flancast90 (Star it!)\n
+            Problems? Contact flancast90@gmail.com
+            `);
         });
     };
 
