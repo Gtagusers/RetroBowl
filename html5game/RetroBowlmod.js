@@ -138,10 +138,9 @@
     const injectInfoBtn = () => {
         createButton("info", "Client info", () => {
             alert(`
-            Using RB_Cracker v0.1\n
-            By Finn Lancaster (flancast90)\n
+            Using RB_Cracker v.2\n
+            By Finn Lancaster (edited for gtagusers modded retro)\n
             https://github.com/flancast90 (Star it!)\n
-            Problems? Contact flancast90@gmail.com
             `);
         });
     };
