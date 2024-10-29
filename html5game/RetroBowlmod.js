@@ -40,7 +40,7 @@
         const body = document.querySelector("body");
         let div = document.createElement("div");
         div.id = "ctrlBar";
-        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);cursor:move; width: 300px; height: 50px; display: flex; justify-content: space-around; align-items: center;";
+        div.style = "background:blue;position:fixed;z-index:1000;top:10px;padding:10px;border-radius:10px;left:50%;transform:translateX(-50%);cursor:move; width: 600px; height: 50px; display: flex; justify-content: space-around; align-items: center;";
         body.appendChild(div);
 
         // Make the ctrlBar draggable
